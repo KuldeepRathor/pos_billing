@@ -24,48 +24,7 @@ class MyApp extends StatelessWidget {
       fallbackLocale: const Locale('en', 'US'),
       home: const HomePage(),
       builder: (context, child) {
-        return Actions(
-          actions: <Type, Action<Intent>>{
-            EditPageIntent: CallbackAction<EditPageIntent>(
-              onInvoke: (intent) => _openEditPage(),
-            ),
-            NextScreenIntent: CallbackAction<NextScreenIntent>(
-              onInvoke: (intent) => _openNextScreen(),
-            ),
-            VendorButtonIntent: CallbackAction<VendorButtonIntent>(
-              onInvoke: (intent) => _clickVendorButton(),
-            ),
-            CustomerButtonIntent: CallbackAction<CustomerButtonIntent>(
-              onInvoke: (intent) => _clickCustomerButton(),
-            ),
-            AddRowIntent: CallbackAction<AddRowIntent>(
-              onInvoke: (intent) => _addNewRow(),
-            ),
-            RemoveRowIntent: CallbackAction<RemoveRowIntent>(
-              onInvoke: (intent) => _removeRow(),
-            ),
-          },
-          child: Shortcuts(
-            shortcuts: <LogicalKeySet, Intent>{
-              LogicalKeySet(
-                      LogicalKeyboardKey.control, LogicalKeyboardKey.keyE):
-                  const EditPageIntent(),
-              LogicalKeySet(
-                      LogicalKeyboardKey.control, LogicalKeyboardKey.keyS):
-                  const NextScreenIntent(),
-              LogicalKeySet(LogicalKeyboardKey.keyV):
-                  const VendorButtonIntent(),
-              LogicalKeySet(LogicalKeyboardKey.keyC):
-                  const CustomerButtonIntent(),
-              LogicalKeySet(LogicalKeyboardKey.enter): const AddRowIntent(),
-              LogicalKeySet(LogicalKeyboardKey.escape): const RemoveRowIntent(),
-            },
-            child: Focus(
-              autofocus: true,
-              child: child!,
-            ),
-          ),
-        );
+        return child!;
       },
     );
   }

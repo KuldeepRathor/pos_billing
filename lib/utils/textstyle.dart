@@ -39,3 +39,45 @@ class CustomText extends StatelessWidget {
     );
   }
 }
+
+class CustomTextExpanded extends StatelessWidget {
+  final String text;
+  final Color? color;
+  final double? fontSize;
+  final String? fontFamily;
+  final FontWeight? fontWeight;
+  final TextAlign? textAlign;
+  final FontStyle? fontStyle;
+  final int flex;
+
+  const CustomTextExpanded({
+    Key? key,
+    required this.text,
+    this.color,
+    this.fontSize,
+    this.fontFamily,
+    this.fontWeight,
+    this.textAlign,
+    this.fontStyle,
+    required this.flex,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      flex: flex,
+      child: Text(
+        text,
+        textAlign: textAlign,
+        style: TextStyle(
+          overflow: TextOverflow.ellipsis,
+          color: color ?? primaryTextColor,
+          fontSize: fontSize ?? 14.0,
+          fontFamily: fontFamily ?? 'Satoshi',
+          fontWeight: fontWeight ?? FontWeight.w500,
+          fontStyle: fontStyle ?? FontStyle.normal,
+        ),
+      ),
+    );
+  }
+}

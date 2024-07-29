@@ -20,8 +20,11 @@ class SideBarWidget extends StatelessWidget {
         onExit: (_) => controller.toggleSidebarOnHover(),
         child: InkWell(
           child: AnimatedContainer(
-            duration: const Duration(milliseconds: 300),
-            width: controller.isExpanded.value ? 180 : 74,
+            duration: const Duration(
+              milliseconds: 300,
+            ),
+            curve: Curves.easeInOutCubic,
+            width: controller.isExpanded.value ? 200 : 74,
             color: primaryColor,
             child: SingleChildScrollView(
               child: Column(
@@ -189,80 +192,87 @@ class SidebarIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: Column(
-        children: [
-          Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 8,
-              vertical: 4,
-            ),
-            child: Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 8.0,
-                vertical: 8.0,
-              ),
-              decoration: BoxDecoration(
-                color: isSelected ? secondaryColor : Colors.transparent,
-                borderRadius: BorderRadius.circular(8.0),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: 40,
-                    height: 38,
-                    child: SvgPicture.asset(
-                      isSelected ? selectedImageURL : imageURL,
-                      width: 24,
-                      height: 24,
-                    ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 8,
+        vertical: 4,
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(8),
+          onTap: onTap,
+          child: Ink(
+            child: Column(
+              children: [
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 4.0,
+                    vertical: 4.0,
                   ),
-                  if (label.isNotEmpty) ...[
-                    Flexible(
-                      child: Text(
-                        label,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 14,
-                          fontFamily: 'Satoshi',
-                          fontWeight: FontWeight.w500,
-                        ),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                  ]
-                ],
-              ),
-            ),
-          ),
-          if (isSelected && subItems != null && controller != null) ...[
-            for (var subItem in subItems!)
-              InkWell(
-                onTap: onTap,
-                child: Container(
-                  padding: const EdgeInsets.only(left: 20, top: 4, bottom: 4),
+                  decoration: BoxDecoration(
+                    color: isSelected ? secondaryColor : Colors.transparent,
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      const Icon(Icons.arrow_right,
-                          color: Colors.white, size: 16),
-                      const SizedBox(width: 8),
-                      Text(
-                        subItem,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 14,
-                          fontFamily: 'Satoshi',
-                          fontWeight: FontWeight.w500,
+                      SizedBox(
+                        width: 40,
+                        height: 38,
+                        child: SvgPicture.asset(
+                          isSelected ? selectedImageURL : imageURL,
+                          width: 24,
+                          height: 24,
                         ),
                       ),
+                      if (label.isNotEmpty) ...[
+                        Flexible(
+                          child: Text(
+                            label,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 14,
+                              fontFamily: 'Satoshi',
+                              fontWeight: FontWeight.w500,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ]
                     ],
                   ),
                 ),
-              ),
-          ],
-        ],
+                if (isSelected && subItems != null && controller != null) ...[
+                  for (var subItem in subItems!)
+                    InkWell(
+                      onTap: onTap,
+                      child: Container(
+                        padding:
+                            const EdgeInsets.only(left: 20, top: 4, bottom: 4),
+                        child: Row(
+                          children: [
+                            const Icon(Icons.arrow_right,
+                                color: Colors.white, size: 16),
+                            const SizedBox(width: 8),
+                            Text(
+                              subItem,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 14,
+                                fontFamily: 'Satoshi',
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                ],
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
